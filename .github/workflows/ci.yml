@@ -1,13 +1,17 @@
-name: First Workflow
+name: Build Artifact
 
 on: push
 
 jobs:
-  hello:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Show files
-        run: ls -la
+      - name: Create file
+        run: echo "Build from GitHub Actions" > build.txt
+
+      - name: Show file
+        run: cat build.txt
