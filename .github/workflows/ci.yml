@@ -1,9 +1,9 @@
-name: Build Artifact
+name: Upload to S3
 
 on: push
 
 jobs:
-  build:
+  upload:
     runs-on: ubuntu-latest
 
     steps:
@@ -11,10 +11,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create file
-        run: echo "Build from GitHub Actions" > build.txt
+        run: echo "Hello from GitHub to S3" > build.txt
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
         with:
-          name: build-file
-          path: build.txt
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: eu-central-1
+
+      - name: Upload to S3
+        run: aws s3 cp build.txt s3://github-actions-artifacts-oleksandr-001/build.txt
