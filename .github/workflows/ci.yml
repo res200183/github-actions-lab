@@ -6,5 +6,8 @@ jobs:
   hello:
     runs-on: ubuntu-latest
     steps:
-      - name: Say Hello
-        run: echo "Hello from CI"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show files
+        run: ls -la
