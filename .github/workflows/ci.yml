@@ -13,5 +13,8 @@ jobs:
       - name: Create file
         run: echo "Build from GitHub Actions" > build.txt
 
-      - name: Show file
-        run: cat build.txt
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-file
+          path: build.txt
